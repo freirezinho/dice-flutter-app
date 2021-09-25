@@ -53,7 +53,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   String _currentDiceFace = DiceFaces.one;
   List<String> diceFaceImages = [
     DiceFaces.one,
@@ -63,16 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
     DiceFaces.five,
     DiceFaces.six
   ];
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   void _throwTheDice() {
     var randomNumberGeneration = new Random();
@@ -117,17 +106,29 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              'Clique no botão abaixo e jogue o dado.',
-              style: TextStyle(color: Theme.of(context).bottomAppBarColor),
+            Container(
+              width: 150,
+              height: 150,
+              child: Image(image: AssetImage("${DiceApp.assetsPath}$_currentDiceFace")),
             ),
-            RaisedButton(
-              onPressed: _throwTheDice,
-              child: Text("Jogar"),
-              color: Theme.of(context).accentColor,
-              textColor: Theme.of(context).bottomAppBarColor,
+            Column(
+              children: <Widget>[
+                Text(
+                  'Clique no botão abaixo e jogue o dado.',
+                  style: TextStyle(color: Theme.of(context).bottomAppBarColor),
+                ),
+                SizedBox(
+                  width: 250,
+                  child: RaisedButton(
+                    onPressed: _throwTheDice,
+                    child: Text("Jogar"),
+                    color: Theme.of(context).accentColor,
+                    textColor: Theme.of(context).bottomAppBarColor,
+                  ),
+                )
+              ],
             ),
           ],
         ),
@@ -146,6 +147,7 @@ class DiceFaces {
 }
 
 class DiceApp {
+  static final assetsPath = "lib/assets/";
   static MaterialColor generateMaterialColorSwatchFor(Color color) {
     List strengths = <double>[.05];
     final swatch = <int, Color>{};
